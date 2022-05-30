@@ -7,10 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-class Сryptographer {
+ class Decipher {
     public static void main(String[] args) {
-
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile("C:\\Users\\User\\IdeaProjects\\ProgectModul1\\out\\production\\ProgectModul1\\secret", "rw");
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile("C:\\Users\\User\\IdeaProjects\\ProgectModul1\\shifrtekst.txt", "rw");
              FileChannel channel = randomAccessFile.getChannel()) {
 
             ByteBuffer byteBuffer = ByteBuffer.allocate((int) channel.size());
@@ -23,25 +22,26 @@ class Сryptographer {
             }
             System.out.println(builder);
 
-            int key = 3;
+            int key = 1;
 
             char[] simvol = new char[builder.length()];
             for (int i = 0; i < builder.length(); i++) {
                 if (Character.isLetter(builder.charAt(i)) && Character.isUpperCase(builder.charAt(i))) {
-                    simvol[i] = (char) (((((int) (builder.charAt(i))) - 65 + key) % 26) + 65);
+                    simvol[i] = (char) (((((int) (builder.charAt(i))) - 65 - key) % 26) + 65);
                 } else if (Character.isLetter(builder.charAt(i)) && Character.isLowerCase(builder.charAt(i)))
-                    simvol[i] = (char) (((((int) (builder.charAt(i))) - 97 + key) % 26) + 97);
+                    simvol[i] = (char) (((((int) (builder.charAt(i))) - 97 - key) % 26) + 97);
                 else simvol[i]= builder.charAt(i);
             }
 
-            System.out.println(simvol);
+
             String encrypted = String.copyValueOf(simvol);
+            System.out.println(simvol);
 
             ByteBuffer byteBuffer1 = ByteBuffer.allocate(encrypted.getBytes().length);
             byteBuffer1.put(encrypted.getBytes());
             byteBuffer1.flip();
             channel.write(byteBuffer1);
-            Path filepath = Paths.get("ciphr.txt");
+            Path filepath = Paths.get("Deciphr.txt");
             Files.createFile(filepath);
             Files.write(filepath, encrypted.getBytes());
 
@@ -53,3 +53,5 @@ class Сryptographer {
         }
     }
 }
+
+
