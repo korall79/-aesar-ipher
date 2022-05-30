@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
  class Decipher {
     public static void main(String[] args) {
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile("C:\\Users\\User\\IdeaProjects\\ProgectModul1\\shifrtekst.txt", "rw");
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile("C:\\Users\\User\\IdeaProjects\\ProgectModul1\\ciphr.txt", "rw");
              FileChannel channel = randomAccessFile.getChannel()) {
 
             ByteBuffer byteBuffer = ByteBuffer.allocate((int) channel.size());
@@ -37,10 +37,6 @@ import java.nio.file.Paths;
             String encrypted = String.copyValueOf(simvol);
             System.out.println(simvol);
 
-            ByteBuffer byteBuffer1 = ByteBuffer.allocate(encrypted.getBytes().length);
-            byteBuffer1.put(encrypted.getBytes());
-            byteBuffer1.flip();
-            channel.write(byteBuffer1);
             Path filepath = Paths.get("Deciphr.txt");
             Files.createFile(filepath);
             Files.write(filepath, encrypted.getBytes());
