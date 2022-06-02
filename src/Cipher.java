@@ -21,7 +21,7 @@ public class Cipher {
             while (byteBuffer.hasRemaining()) {
                 builder.append((char) byteBuffer.get());//пока в буфере что то есть добавляем в билдер
             }
-            System.out.println(builder);
+            System.out.println("Text before encrypt:"+ builder);
 
             int key = 1;// задаем ключ
 
@@ -34,11 +34,12 @@ public class Cipher {
                 else simvol[i]= builder.charAt(i);
             }
 
-            System.out.println(simvol);
+
             String encrypted = String.copyValueOf(simvol);// копируем все символы чар в строку
+            System.out.println("Text after encrypt:"+encrypted);
 
 
-            Path filepath = Paths.get("ciphr.txt");// в файлпаф добавляем путь
+            Path filepath = Paths.get("ciphr2.txt");// в файлпаф добавляем путь
             Files.createFile(filepath);//Создаем новый файл с путем path
             Files.write(filepath, encrypted.getBytes());//записываем защифр файл
 
